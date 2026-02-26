@@ -1,0 +1,102 @@
+[
+  {
+    "name": "ChatGPT",
+    "desc": "Trợ lý viết, tóm tắt, brainstorm, lập kế hoạch và hỗ trợ công việc.",
+    "tags": [
+      "chat",
+      "writing",
+      "productivity"
+    ],
+    "url": "https://chat.openai.com"
+  },
+  {
+    "name": "Claude",
+    "desc": "Mạnh về viết dài, logic, tổng hợp tài liệu và văn phong tự nhiên.",
+    "tags": [
+      "writing",
+      "analysis"
+    ],
+    "url": "https://claude.ai"
+  },
+  {
+    "name": "Perplexity",
+    "desc": "Tìm kiếm + tóm tắt theo nguồn, phù hợp tra cứu nhanh.",
+    "tags": [
+      "search",
+      "research"
+    ],
+    "url": "https://www.perplexity.ai"
+  },
+  {
+    "name": "Canva",
+    "desc": "Thiết kế nhanh banner/thumbnail/post social, nhiều template.",
+    "tags": [
+      "design",
+      "social"
+    ],
+    "url": "https://www.canva.com"
+  },
+  {
+    "name": "CapCut",
+    "desc": "Dựng video short nhanh, auto caption, template trend.",
+    "tags": [
+      "video",
+      "shorts"
+    ],
+    "url": "https://www.capcut.com"
+  },
+  {
+    "name": "Notion AI",
+    "desc": "Ghi chú, quản lý tài liệu, tóm tắt họp, wiki team.",
+    "tags": [
+      "notes",
+      "wiki"
+    ],
+    "url": "https://www.notion.so/product/ai"
+  },
+  {
+    "name": "ElevenLabs",
+    "desc": "Tạo giọng đọc, voiceover, podcast chất lượng cao.",
+    "tags": [
+      "voice",
+      "tts"
+    ],
+    "url": "https://elevenlabs.io"
+  },
+  {
+    "name": "Runway",
+    "desc": "Tạo video AI, edit video, background removal.",
+    "tags": [
+      "video",
+      "gen"
+    ],
+    "url": "https://runwayml.com"
+  },
+  {
+    "name": "Zapier",
+    "desc": "Tự động hoá workflow: form → sheet → email → CRM.",
+    "tags": [
+      "automation",
+      "no-code"
+    ],
+    "url": "https://zapier.com"
+  },
+  {
+    "name": "Make",
+    "desc": "Automation trực quan (scenario), mạnh cho quy trình phức tạp.",
+    "tags": [
+      "automation",
+      "no-code"
+    ],
+    "url": "https://www.make.com"
+  },
+  {
+    "name": "SheetsDB/Sheet.best",
+    "desc": "Biến Google Sheet thành API để làm CMS đơn giản.",
+    "tags": [
+      "no-code",
+      "cms"
+    ],
+    "url": "https://sheet.best"
+  }
+]

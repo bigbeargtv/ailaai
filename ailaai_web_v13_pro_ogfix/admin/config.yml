@@ -1,0 +1,29 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: editorial_workflow
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+site_url: "https://ailaai.vn"
+
+collections:
+  - name: "posts"
+    label: "Bài viết"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}{{month}}{{day}}-{{slug}}"
+    summary: "{{date}} — {{title}}"
+    fields:
+      - {label: "Tiêu đề", name: "title", widget: "string"}
+      - {label: "Mô tả ngắn", name: "excerpt", widget: "text"}
+      - {label: "Ngày đăng", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Chuyên mục", name: "category", widget: "select", options: ["Tin AI","Hướng dẫn","Prompt hay","Tool AI","AI kiếm tiền","Cộng đồng"]}
+      - {label: "Tác giả", name: "author", widget: "string", default: "Ailaai Team"}
+      - {label: "Bio tác giả (tuỳ chọn)", name: "author_bio", widget: "text", required: false}
+      - {label: "Tags", name: "tags", widget: "list", allow_add: true, required: false}
+      - {label: "Bài nổi bật", name: "featured", widget: "boolean", default: false, required: false}
+      - {label: "Ảnh cover", name: "image", widget: "image", required: false}
+      - {label: "Nội dung", name: "body", widget: "markdown"}
