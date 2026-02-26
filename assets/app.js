@@ -93,19 +93,29 @@ function topTags(posts, limit=14){
   return [...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,limit).map(x=>x[0]);
 }
 
-function buildItem(p){
-  const div = document.createElement('div');
-  div.className = 'item';
-  div.innerHTML = `
-    <div class="pic" aria-hidden="true"></div>
-    <div>
-      <div class="meta">${fmtDate(p.date)} • <span class="badge ${p.category==='Prompt hay'?'purple':''}">${p.category}</span> • ${p.readingTime} • <span class="fb-comments-count" data-href="${postUrl(p.id)}">0</span> bình luận</div>
-      <h3><a href="article.html?id=${encodeURIComponent(p.id)}">${p.title}</a></h3>
-      <p>${p.excerpt}</p>
+function buildItem(post){
+  const a = document.createElement('a');
+  a.className = 'card post-card';
+  a.href = `article.html?id=${encodeURIComponent(post.id)}`;
+
+  const imgSrc = post.image || post.ogImage || '/assets/og/default.png';
+
+  a.innerHTML = `
+    <div class="post-thumb"><img loading="lazy" src="${imgSrc}" alt=""></div>
+    <div class="post-body">
+      <div class="post-title">${post.title}</div>
+      <div class="post-excerpt">${post.excerpt || ''}</div>
+      <div class="post-meta">
+        <span class="badge cat">${post.category || 'Bài viết'}</span>
+        <span>${post.readingTime || ''}</span>
+        <span>•</span>
+        <span>${post.date || ''}</span>
+        <span>•</span>
+        <span class="fb-comment-count" data-href="${absoluteUrl(`article.html?id=${encodeURIComponent(post.id)}`)}">… bình luận</span>
+      </div>
     </div>
   `;
-  setBg(div.querySelector('.pic'), p.image);
-  return div;
+  return a;
 }
 
 function buildMini(p){
@@ -500,23 +510,48 @@ function renderHomePro(){
     const side = sorted.filter(p=>p.id!==featured.id).slice(0,3);
 
     if(hero && featured){
+      const heroImg = featured.image || featured.ogImage || '/assets/og/default.png';
       hero.innerHTML = `
         <div class="hero-main">
-          <span class="kicker">★ Nổi bật</span>
-          <h1>${featured.title}</h1>
-          <p>${featured.excerpt || ''}</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-            <a class="cta" href="article.html?id=${encodeURIComponent(featured.id)}">Đọc ngay</a>
-            <span style="color:var(--muted);font-size:13px">${featured.category || ''} • ${featured.readingTime || ''}</span>
+          <div class="hero-top">
+            <div class="hero-thumb"><img src="${heroImg}" alt=""></div>
+            <div class="hero-content">
+              <div>
+                <span class="badge hot">★ Nổi bật</span>
+                <h1 style="margin-top:10px">${featured.title}</h1>
+                <p style="margin-top:8px">${featured.excerpt || ''}</p>
+                <div class="hero-meta">
+                  <span class="badge cat">${featured.category || ''}</span>
+                  <span>${featured.readingTime || ''}</span>
+                  <span>•</span>
+                  <span>${featured.date || ''}</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+                <a class="cta" href="article.html?id=${encodeURIComponent(featured.id)}">Đọc ngay</a>
+                <a class="ghost" href="category.html">Xem chuyên mục</a>
+              </div>
+            </div>
           </div>
         </div>
         <div class="hero-side">
-          ${side.map(p=>`
-            <a class="card" style="text-decoration:none;color:var(--text)" href="article.html?id=${encodeURIComponent(p.id)}">
-              <div style="font-weight:800;line-height:1.25">${p.title}</div>
-              <div style="margin-top:6px;color:var(--muted);font-size:13px">${p.category || ''} • ${p.readingTime || ''}</div>
-            </a>
-          `).join('')}
+          <div class="card side-card" style="padding:14px">
+            <div class="t" style="font-weight:900">Hot hôm nay</div>
+            <div style="margin-top:10px;display:grid;gap:10px">
+              ${side.map(p=>{
+                const u = `article.html?id=${encodeURIComponent(p.id)}`;
+                return `
+                  <a href="${u}" style="text-decoration:none;color:var(--text)">
+                    <div class="t">${p.title}</div>
+                    <div class="m">${p.category || ''} • ${p.readingTime || ''}</div>
+                  </a>`;
+              }).join('')}
+            </div>
+          </div>
+          <div class="card side-card" style="padding:14px">
+            <div class="t" style="font-weight:900">Mẹo nhanh</div>
+            <div class="m" style="margin-top:8px">Gõ vào ô tìm kiếm: <b>prompt</b>, <b>chatgpt</b>, <b>tool</b> để lọc bài nhanh.</div>
+          </div>
         </div>
       `;
     }
@@ -555,4 +590,11 @@ function renderAuthorPage(){
     filtered.forEach(p=> list.appendChild(buildItem(p)));
     fbParse();
   });
+}
+
+function absoluteUrl(rel){
+  const base = (window.SITE_URL || document.querySelector('meta[property="og:url"]')?.content || location.origin).replace(/\/$/,'');
+  if(rel.startsWith('http')) return rel;
+  if(rel.startsWith('/')) return base + rel;
+  return base + '/' + rel;
 }
